@@ -21,613 +21,534 @@
 
 
 =================================================================
-=                        INTRODUCTION                           =
+=                         欢迎使用 HELIX                        =
 =================================================================
 
- Welcome to the Helix editor! Helix is different from editors
- you might be used to in that it is modal, meaning that it has
- different modes for editing text. The primary modes you will
- use are Normal mode and Insert mode. While in Normal mode, the
- keys you type won't actually type text. Instead, they will
- perform various actions with the text. This allows for more
- efficient editing. This tutor will teach you how you can make
- use of Helix's modal editing features. To begin, ensure your
- CapsLock key is not pressed and hold the j key until you reach
- the first lesson.
+这是 Helix 编辑器的交互式中文教程。
 
- This tutor opens in an unnamed buffer.
- * To quit without saving changes, use :q!.
- * To save your changes to a file, use :w <path> and then :q.
+本文件是官方 runtime/tutor 的本地汉化版。目标很简单：让你直接在
+Helix 里练习移动、选择、编辑、多光标、寄存器、宏、匹配模式和窗口分割。
 
+如果你已经用 hx --tutor 打开了这个文件，那么你就在正确的位置。
+请按顺序完成每个小节。教程里的练习通常有一行以 --> 开头，你需要移动到
+那一行，并按说明修改它。
 
+重要约定：
 
+ * Helix 是模态编辑器。普通模式用于移动和执行命令，插入模式用于输入文本。
+ * Helix 的核心节奏通常是：先产生选择区，再对选择区执行操作。
+ * Escape 通常用于回到普通模式。
+ * Ctrl-x 表示同时按住 Ctrl 和 x。
+ * Alt-x 表示同时按住 Alt 和 x。
+ * Space 表示空格键。
 
-
-
-
-
-=================================================================
-=                  1.1 BASIC CURSOR MOVEMENT                    =
-=================================================================
-
-          ↑
-          k       * h is on the left
-      ← h   l →   * l is on the right
-          j       * j looks like a down arrow
-          ↓
-
- The cursor can be moved using the h, j, k, l keys, as shown
- above. The cursor / arrow keys will also work, but it is faster
- to use the hjkl keys as they are closer to the other keys you
- will be using. Try moving around to get a feel for hjkl.
- Once you're ready, hold j to continue to the next lesson.
-
-
-
-
+不要急着一次读完。像练琴一样，把手指练熟比背命令更重要。
 
 
 
 =================================================================
-=                      1.2 EXITING HELIX                        =
+=                      1.1 基本光标移动                         =
 =================================================================
 
- 1. Type : to enter Command mode. Your cursor will
-    move to the bottom of the screen.
- 2. Type q or quit and press Enter to exit Helix.
+使用 h、j、k、l 移动光标。
 
- Note: The quit command will fail if there are unsaved changes.
-       To force quit and DISCARD these changes, type q! or quit!.
-       You will learn how to save files later.
+        k
+    h       l
+        j
 
- To exit Command mode without entering a command, press Escape.
+h 向左，j 向下，k 向上，l 向右。
 
- Now, move on to the next lesson.
+1. 把光标移动到下面标记为 '-->' 的行。
+2. 反复使用 h j k l，在这一行里移动。
+3. 试着只用键盘移动，不要用鼠标。
 
+--> 在这一行里练习 h j k l 移动光标。
 
-
-
-
-
-
-=================================================================
-=                         1.3 DELETION                          =
-=================================================================
-
- Type the d key to delete the character under the cursor.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Move the cursor to each extra character, and type d to
-    delete it.
-
- --> Thhiss senttencee haass exxtra charracterss.
-     This sentence has extra characters.
-
- Once the sentence is correct, move on to the next lesson.
-
-
-
-
-
+提示：方向键也可以用，但 h j k l 是 Helix 用户最常用的移动方式。
 
 
 
 =================================================================
-=                       1.4 INSERT MODE                         =
+=                         1.2 退出 HELIX                         =
 =================================================================
 
- Type the i key to enter Insert mode.
+输入 :q 退出 Helix。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to a place in the line which is missing text and type
-    i to enter Insert mode. Keys you type will now type text.
- 3. Enter the missing text.
- 4. Press Escape to exit Insert mode and return to Normal mode.
- 5. Repeat until the line matches the line below it.
+冒号 : 会打开命令行提示符。输入 q 后按 Enter 即可退出。
 
- --> Th stce misg so.
-     This sentence is missing some text.
+1. 输入 :q 然后按 Enter。
+2. 如果你不想真的退出，可以按 Escape 取消命令行。
 
- Note: The status bar will display your current mode.
-       Notice that when you type i, 'NOR' changes to 'INS'.
-
+如果文件有未保存的修改，Helix 会阻止你直接退出。这时可以使用 :q! 强制退出并丢弃修改。
 
 
 
 =================================================================
-=                      1.5 SAVING A FILE                        =
+=                          1.3 删除                              =
 =================================================================
 
- Type :w / :write to save a file.
+输入 d 删除当前选择区。
 
- 1. Exit Helix using :q! as explained before, or open a new
-    terminal.
- 2. Open a file in Helix by running: hx FILENAME
- 3. Make some edits to the file.
- 4. Type : to enter Command mode.
- 5. Type w or write, and press Enter to save the file.
+在普通模式下，光标本身就像一个单字符选择区，所以 d 会删除光标下的字符。
 
- You can also type wq or write-quit to save and exit.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标移到多余字符上。
+3. 输入 d 删除它。
+4. 重复直到这一行和下一行一致。
 
- Note: You can optionally enter a file path after the w / write
-       command in order to save to that path.
- Note: If there are any unsaved changes to a file, a plus [+]
-       will appear next to the file name in the status bar.
+--> Heliix 是一个很棒棒的编辑器。
+    Helix 是一个很棒的编辑器。
+
+提示：如果误删了，后面会学撤销。
 
 
 
 =================================================================
-=                        CHAPTER 1 RECAP                        =
+=                        1.4 插入模式                            =
 =================================================================
 
- * Use the h,j,k,l keys to move the cursor.
+输入 i 进入插入模式。
 
- * Type : to enter Command mode.
-   * The q / quit and q! / quit! commands will exit Helix. The
-     former fails when there are unsaved changes. The latter
-     discards them.
-   * The w / write command will save the file.
-   * The wq / write-quit command will do both.
+在插入模式中，你输入的普通字符会被写入文件。按 Escape 回到普通模式。
 
- * Type d to delete the character at the cursor.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在缺字的位置。
+3. 输入 i 进入插入模式。
+4. 输入缺少的文字。
+5. 按 Escape 回到普通模式。
 
- * Type i to enter Insert mode and type text. Press Escape to
-   return to Normal mode.
+--> 这行少了一些。
+    这行少了一些文字。
 
-
-
-
-
-=================================================================
-=                   2.1 MORE INSERT COMMANDS                    =
-=================================================================
-
- As you saw, you can type i to enter Insert mode at the current
- position of the cursor. There are a few other ways you can
- enter Insert mode at different locations.
-
- Common examples of insertion commands include:
-   i - Insert before the selection.
-   a - Insert after the selection. (a means 'append')
-   I - Insert at the start of the line.
-   A - Insert at the end of the line.
-
- 1. Move to anywhere in the line marked '-->' below.
- 2. Type A (Shift-a), your cursor will move to the end of
-    the line and you will be able to type.
- 3. Type the text necessary to match the line below.
-
- --> This sentence is miss
-     This sentence is missing some text.
-
-=================================================================
-=                      2.2 OPENING LINES                        =
-=================================================================
-
- Type o to add a newline and insert below the cursor.
- Type O to add a newline and insert above the cursor.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Type o to open a line below and type your answer.
-
- --> What is the best editor?
-
-
-
-
-
-
-
-
+提示：状态栏会显示当前模式。看到 INSERT 就说明你在插入模式。
 
 
 
 =================================================================
-=                        CHAPTER 2 RECAP                        =
+=                         1.5 保存文件                           =
 =================================================================
 
- * Type a to append to the selection.
+输入 :w 保存文件。
 
- * Type I to enter Insert mode at the first non-whitespace
-   character at the start of a line.
+冒号 : 打开命令行。w 是 write 的缩写。
 
- * Type A to enter Insert mode at the end of a line.
+常见命令：
 
- * Use o and O to open lines below and above the cursor respectively.
+ * :w   保存
+ * :q   退出
+ * :wq  保存并退出
+ * :q!  强制退出，不保存
 
-
-
-
-
-
-
+1. 输入 :w 并按 Enter。
+2. 看状态栏提示，确认文件已经保存。
 
 
 
 =================================================================
-=                  3.1 MOTIONS AND SELECTIONS                   =
+=                        第 1 章回顾                             =
 =================================================================
 
- Type w to select forward until the next word.
-
- The d key doesn't actually delete the character at the cursor,
- it deletes all selected text. Your cursor is like a
- single-character selection.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to the beginning of a word that needs to be deleted.
- 3. Type w to select until the beginning of the next word.
- 4. Type d to delete the selection.
- 5. Repeat for all extra words in the line.
-
- --> This sentence pencil has vacuum extra words in the it.
-     This sentence has extra words in it.
-
+ * 使用 h、j、k、l 移动光标。
+ * 输入 :q 退出 Helix。
+ * 输入 :q! 强制退出并丢弃修改。
+ * 输入 d 删除当前选择区。
+ * 输入 i 进入插入模式；按 Escape 回到普通模式。
+ * 输入 :w 保存文件。
 
 
 
 =================================================================
-=                     3.2 MORE MOTIONS                          =
+=                      2.1 更多插入命令                          =
 =================================================================
 
- As you saw, typing w moves the cursor forward until the start
- of the next word, selecting the text traversed. This is useful
- for moving around text and for selecting text to operate on.
+输入 a 在光标后追加文本。
+输入 I 在当前行开头插入文本。
+输入 A 在当前行末尾追加文本。
 
- Some common motions include:
-   w - Move forward to before the beginning of the next word.
-   e - Move forward to the end of the current word.
-   b - Move backward to the beginning of the current word.
+这些命令都会进入插入模式。
 
- To select the word under cursor, combine e and b.
+1. 移动到下面标记为 '-->' 的行。
+2. 用 a 在单词后补字。
+3. 用 I 在行首添加文字。
+4. 用 A 在行尾添加文字。
+5. 每次输入完成后按 Escape 回到普通模式。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to a 'd' letter.
- 3. Type e to select a half of the word.
- 4. Type b to select the rest.
+--> 句子缺少开头，也缺少结尾
+    这个句子缺少开头，也缺少结尾。
 
---> The Middle Kingdom.
+提示：i 在光标前插入，a 在光标后追加。
+
+
 
 =================================================================
-=                     3.3 WORDS AND words                       =
+=                         2.2 打开新行                           =
 =================================================================
 
- The w,e,b motions also have counterparts - W,E,B - which
- traverse WORDS instead of words. WORDS are only separated by
- whitespace, whereas words can be separated by other characters
- in addition to whitespace.
+输入 o 在当前行下方打开新行并进入插入模式。
+输入 O 在当前行上方打开新行并进入插入模式。
 
- 1. Move the cursor to the beginning of the line marked with '-->'.
- 2. Type w repeatedly to select individual words until you
-    reach the end of the line.
- 3. Note that 'one-of-a-kind' required 7 keystrokes to be
-    traversed. '"modal"' required 3 keystrokes.
- 4. Move the cursor back to beginning of the line marked '-->'.
- 5. Type W repeatedly to select individual WORDS.
- 6. Note that 'one-of-a-kind' and '"modal"' have been selected
-    both with one keystroke each.
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 o，在下面添加一行。
+3. 按 Escape 回到普通模式。
+4. 输入 O，在上面添加一行。
+5. 让三行内容变成连续的短句。
+
+--> 中间这一行已经在这里。
+
+提示：o 和 O 很常用，尤其适合快速写代码或补充文本。
+
+
+
+=================================================================
+=                        第 2 章回顾                             =
+=================================================================
+
+ * 输入 a 在光标后进入插入模式。
+ * 输入 I 在行首进入插入模式。
+ * 输入 A 在行尾进入插入模式。
+ * 输入 o 在下方打开新行。
+ * 输入 O 在上方打开新行。
+
+
+
+=================================================================
+=                    3.1 移动命令与选择区                        =
+=================================================================
+
+输入 w 向前选择到下一个单词开头。
+
+d 键并不是“删除光标处的字符”这么简单；它删除当前所有选择区。你的光标可以看作一个单字符选择区。
+
+1. 移动到下面标记为 '-->' 的行。
+2. 移动到一个需要删除的多余单词开头。
+3. 输入 w 选中到下一个单词开头。
+4. 输入 d 删除选择区。
+5. 重复，删掉所有多余单词。
+
+--> 这个 句子 铅笔 有 真空 多余 的 词语。
+    这个句子有多余的词语。
+
+提示：Helix 常见节奏是“移动产生选择，然后执行操作”。
+
+
+
+=================================================================
+=                       3.2 更多移动命令                         =
+=================================================================
+
+输入 w 选择到下一个单词开头。
+输入 e 选择到当前或下一个单词结尾。
+输入 b 选择到前一个单词开头。
+
+大写 W、E、B 的含义类似，但按 WORD 移动。WORD 以空白分隔；word 更细，会把标点也纳入边界判断。
+
+1. 移动到下面标记为 '-->' 的行。
+2. 使用 w、e、b 在行内来回移动。
+3. 观察每次移动后被选中的范围。
+4. 使用 W、E、B 再试一次。
+
+--> Helix 是一个 one-of-a-kind "modal" text editor
+
+提示：小写移动更细，大写移动更粗。
+
+
+
+=================================================================
+=                     3.3 WORDS 和 words                         =
+=================================================================
+
+word 通常指由字母、数字或符号切分出来的较小单位。WORD 指由空白分隔出来的较大单位。
+
+例如：one-of-a-kind 可能需要多次 w 才能走完，但通常只需要一次 W 就能作为一个整体跨过去。
+
+1. 移动到下面标记为 '-->' 的行首。
+2. 反复输入 w，观察选择如何逐步跨过单词和标点。
+3. 回到行首。
+4. 反复输入 W，观察 WORD 移动的差异。
 
 --> Helix is a one-of-a-kind "modal" text editor
 
-
-=================================================================
-=                    3.4 THE CHANGE COMMAND                     =
-=================================================================
-
- Type c to change the current selection.
-
- The change command deletes the current selection and enters
- Insert mode, so it is a very common shorthand for di.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to the start of an incorrect word and type e to
-    select it.
- 3. Type c to delete the word and enter Insert mode.
- 4. Type the correct word.
- 5. Repeat until the line matches the line below it.
-
- --> This paper has heavy words behind it.
-     This sentence has incorrect words in it.
-
+提示：写代码时，小写移动适合精确编辑，大写移动适合快速跨段。
 
 
 
 =================================================================
-=                   3.5 COUNTS WITH MOTIONS                     =
+=                       3.4 修改命令                             =
 =================================================================
 
- Type a number before a motion to repeat it that many times.
+输入 c 修改当前选择区。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Type 2w to move 2 words forward.
- 3. Type 3e to move to the end of the third word forward.
- 4. Type 2b to move 2 words backwards.
- 5. Try the above with different numbers.
+c 会删除当前选择区并进入插入模式，所以它等价于“删除后立刻插入”。这是非常常用的快捷方式。
 
- --> This is just a line with words you can move around in.
+1. 移动到下面标记为 '-->' 的行。
+2. 移动到错误单词开头，输入 e 选中它。
+3. 输入 c 删除该词并进入插入模式。
+4. 输入正确单词。
+5. 按 Escape 回到普通模式，重复直到两行一致。
 
+--> 这张 纸 有 沉重 的 词 在 后面。
+    这个句子有错误的词在里面。
 
-
-
-
-
-
-
-
-=================================================================
-=                    3.6 SELECT / EXTEND MODE                   =
-=================================================================
-
- Type v to enter Select mode.
- Type v again or Escape to return to Normal mode
- In Select mode every movement will extend the selection, as
- opposed to replacing it.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to the F of FOO and type v2w to select the two words.
- 3. Type d to remove the two words. Notice d returns you to
-    Normal mode.
- 4. Move to the B of BAZ and repeat the sequence to delete them.
-
- --> Remove the FOO BAR distracting words BAZ BIZ from this line.
-
-
-
+提示：如果要改一个词，常见手法是移动到词首，按 e，再按 c。
 
 
 
 =================================================================
-=                     3.7 SELECTING LINES                       =
+=                    3.5 给移动命令加次数                        =
 =================================================================
 
- Type x to select a whole line. Type x again to select the next.
+在移动命令前输入数字，可以重复这个移动多次。
 
- 1. Move the cursor to the second line marked '-->' below.
- 2. Type x to select the line, and d to delete it.
- 3. Move to the fourth line.
- 4. Type x twice or type 2x to select 2 lines, and d to delete.
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 2w 向前移动 2 个 word。
+3. 输入 3e 移动到后面第 3 个 word 的结尾。
+4. 输入 2b 向后移动 2 个 word。
+5. 换不同数字试试。
 
- --> 1) Roses are red,
- --> 2) Mud is fun,
- --> 3) Violets are blue,
- --> 4) I have a car,
- --> 5) Clocks tell time,
- --> 6) Sugar is sweet,
- --> 7) And so are you.
+--> 这是一行可以让你反复移动练习的文字。
 
- Note: X works similarly to x although it doesn't extend to
-       subsequent lines. X on an empty line does nothing.
-
-=================================================================
-=                   3.8 COLLAPSING SELECTIONS                   =
-=================================================================
-
- Type ; to collapse selections to single cursors.
-
- Sometimes, you want to deselect without having to move the
- cursor(s). This can be done using the ; key.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Use the motions you have learned to move around the line,
-    and try using ; to deselect the text after it is selected
-    by the motions.
-
- --> This is an error-free line with words to move around in.
-
- Note: This works the same in Select mode.
- Note: Another related command is Alt-; which flips the direction
-       of the selection (flips the selection's cursor and anchor).
+提示：次数不仅能配合移动，也能配合许多编辑命令。
 
 
 
 =================================================================
-=                        CHAPTER 3 RECAP                        =
+=                     3.6 选择 / 扩展模式                        =
 =================================================================
 
- * Type w to select forward until the next word.
-   * Type e to select to the end of the current word.
-   * Type b to select backward to the start of the current word.
-   * Use uppercase counterparts, W,E,B, to traverse WORDS.
+输入 v 进入选择模式。再次输入 v 或按 Escape 回到普通模式。
 
- * Type d to delete the entire selection.
-   * Type c to delete the selection and enter Insert mode.
+在选择模式中，每次移动都会扩展当前选择区，而不是替换选择区。
 
- * Type a number before a motion to repeat it that many times.
+1. 移动到下面标记为 '-->' 的行。
+2. 移动到 FOO 的 F。
+3. 输入 v 进入选择模式。
+4. 使用 e、w 或 l 扩展选择，直到选中 FOO BAR。
+5. 输入 d 删除选择区。
 
- * Type v to enter Select mode, where all motions extend the
-   selection.
+--> 请删除这里的 FOO BAR，然后保留其余文字。
 
- * Type x to select the entire current line. Type x again to
-   select the next line.
-
- * Type semicolon ( ; ) to collapse selection.
-
-=================================================================
-=                         4.1 UNDOING                           =
-=================================================================
-
- Type u to undo. Type U to redo.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Move to the first error, and type d to delete it.
- 3. Type u to undo your deletion.
- 4. Fix all the errors on the line.
- 5. Type u several times to undo your fixes.
- 6. Type U (Shift-u) several times to redo your fixes.
-
- --> Fiix the errors on thhis line and reeplace them witth undo.
-
-
-
-
-
+提示：选择模式适合“看着范围一点点扩大”的编辑。
 
 
 
 =================================================================
-=                 4.2 COPYING AND PASTING TEXT                  =
+=                         3.7 选择整行                           =
 =================================================================
 
- Type y to yank (copy) the selection.
- Type p to paste the yanked selection after the cursor.
- Type P to paste the yanked text before the cursor.
+输入 x 选择当前整行。重复输入 x 会继续向下扩展选择更多行。
 
- 1. Move the cursor to the line marked '-->' below.
-    Make sure your cursor is on the "b" of banana.
- 2. Type w to select "banana" and y to yank it.
- 3. Move to the space between "2" and "3" and type p to paste.
- 4. Repeat between "3" and "4".
+1. 移动到下面第一行标记为 '-->' 的行。
+2. 输入 x 选择当前行。
+3. 输入 2x 选择两行，或反复按 x 扩展。
+4. 输入 d 删除不需要的行。
 
- --> 1 banana 2 3 4
-     1 banana 2 banana 3 banana 4
+--> 1) 玫瑰是红色的，
+--> 2) 泥巴很好玩，
+--> 3) 紫罗兰是蓝色的，
+--> 4) 我有一辆车，
+--> 5) 时钟会报时，
+--> 6) 糖是甜的，
+--> 7) 你也是。
 
- Note: Whenever you delete or change text, Helix will copy the
-       altered text. Use Alt-d / Alt-c instead to avoid this.
- Note: Helix doesn't share the system clipboard by default. Type
-       Space + y / p to yank / paste on the system's clipboard.
-
-=================================================================
-=                     4.3 SEARCHING IN FILE                     =
-=================================================================
-
- Type / to search forward in file, Enter to confirm search.
- Type n to go to the next search match.
- Type N to go to the previous search match.
-
- 1. Type / and type in a common word, like 'banana'.
- 2. Press Enter to confirm the search.
- 3. Use n and N to cycle through the matches.
-
- Searching uses regular expressions, allowing you to target more
- complex expressions, which you'll learn about in the lesson on
- the select command.
-
- Note: To search backwards, type ? (Shift-/).
- Note: Unlike Vim, ? doesn't change the search direction.
-       N always goes backwards and n always goes forwards.
+提示：X 和 x 类似，但不会扩展到后续行；在空行上按 X 不会做事。
 
 
 
 =================================================================
-=                        CHAPTER 4 RECAP                        =
+=                       3.8 折叠选择区                           =
 =================================================================
 
- * Type u to undo. Type U to redo.
+输入 ; 将选择区折叠回单个光标。
 
- * Type y to yank (copy) text and p to paste.
-   * Use Space + y and Space + p to yank / paste on the system
-     clipboard.
+有时你只是想取消选择，但不想移动光标。这时可以按 ;。
 
- * Type / to search forward in file, and ? to search backwards.
-   * Use n and N to cycle through search matches.
+1. 移动到下面标记为 '-->' 的行。
+2. 使用你已经学过的移动命令在行内移动。
+3. 每次产生选择区后，试着用 ; 取消选择。
 
+--> 这是一行没有错误的文字，可以用来练习移动和取消选择。
 
-
-
-
-
-
+提示：选择模式中也可以使用 ;。
+提示：Alt-; 可以翻转选择方向，也就是交换选择区的光标端和锚点端。
 
 
 
 =================================================================
-=                     5.1 MULTIPLE CURSORS                      =
+=                        第 3 章回顾                             =
 =================================================================
 
- Type C to duplicate the cursor to the next suitable line.
-
- 1. Move the cursor to the first line marked '-->' below. Place
-    the cursor somewhere past the '-->'.
- 2. Type C to duplicate the cursor to the next suitable line.
-    Notice how it skips the line in the middle. Keys you type
-    will now affect both cursors.
- 3. Use Insert mode to correct the lines. The two cursors will
-    fix both lines simultaneously.
- 4. Type , to remove the first cursor.
-
- --> Fix th two nes at same ime.
- -->
- --> Fix th two nes at same ime.
-     Fix these two lines at the same time.
-
- Note: Press Alt-C to do the same above the cursor.
-
-=================================================================
-=                    5.2 THE SELECT COMMAND                     =
-=================================================================
-
- Type s to select matches in the selection.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Type x to select the line.
- 3. Type s. A prompt will appear.
- 4. Type 'apples' and press Enter. Both occurrences of
-    'apples' in the line will be selected.
- 5. You can now type c and change 'apples' to something else,
-    like 'oranges'.
- 6. Press Escape to exit Insert mode.
- 7. Type , to remove the second cursor.
-
- --> I like to eat apples since my favorite fruit is apples.
-     I like to eat oranges since my favorite fruit is oranges.
-
+ * 输入 w 向前选择到下一个 word。
+ * 输入 e 选择到 word 结尾。
+ * 输入 b 选择到前一个 word 开头。
+ * 使用 W、E、B 按 WORD 移动。
+ * 输入 c 修改当前选择区。
+ * 在移动命令前输入数字可以重复移动。
+ * 输入 v 进入选择模式。
+ * 输入 x 选择整行。
+ * 输入 ; 折叠选择区。
+ * 输入 Alt-; 翻转选择方向。
 
 
 
 =================================================================
-=                    5.3 SELECTING VIA REGEX                    =
+=                         4.1 撤销                               =
 =================================================================
 
- Like searching, the select command selects regular expressions,
- not just exact matches.
+输入 u 撤销。输入 U 重做。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Select the line with x and then type s.
- 3. Type '  +' to select any amount of consecutive spaces >1,
-    then press Enter.
- 4. Type c and change the matches to single spaces.
+1. 移动到下面标记为 '-->' 的行。
+2. 移动到第一个错误处，输入 d 删除它。
+3. 输入 u 撤销刚才的删除。
+4. 修复这一行里的所有错误。
+5. 多次输入 u 撤销你的修复。
+6. 多次输入 U 重做你的修复。
 
- --> This  sentence has   some      extra spaces.
-     This sentence has some extra spaces.
+--> 修修复这一行的错错误，并用撤撤销命令练习。
 
- Note: If you want to perform find-and-replace, the select
-       command is the way to do it. Select the text you want
-       to replace in — type % to select the whole file — and
-       then perform the steps explained above.
+提示：u 和 U 是最值得形成肌肉记忆的两个键。
+
 
 
 =================================================================
-=                      5.4 ALIGN SELECTIONS                     =
+=                      4.2 复制和粘贴文本                        =
 =================================================================
 
- Type & to align the contents of the selections.
+输入 y 复制当前选择区，Helix 中称为 yank。
+输入 p 在光标后粘贴复制的文本。
+输入 P 在光标前粘贴复制的文本。
 
- 1. Move the cursor to the first line marked '-->' below. Place
-    the cursor on the whitespace just after the arrow.
- 2. Type C four times or 4C.
- 3. Type W to select the numbers and brackets.
- 4. Type & to align the words.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在 banana 的 b 上。
+3. 输入 w 选中 banana，然后输入 y 复制。
+4. 移动到合适位置，用 p 或 P 粘贴。
+5. 让这一行和下一行一致。
 
- --> 97) lorem
- --> 98) ipsum
- --> 99) dolor
- --> 100) sit
- --> 101) amet
+--> I like banana because is sweet.
+    I like banana because banana is sweet.
 
- Note: & only cares about the alignment of the "head" of the
-       selections - the end that moves. The other end is called
-       the "anchor".
+提示：Space y 和 Space p 通常用于系统剪贴板。
+
+
 
 =================================================================
-=                 5.5 SPLIT SELECTION INTO LINES                =
+=                         4.3 文件内搜索                         =
 =================================================================
 
- Press Alt-s to split the selection(s) on newlines.
+输入 / 向前搜索。输入 ? 向后搜索。
 
- 1. Move the cursor to the first row of the table below.
- 2. Select the entire table with 6x.
- 3. Press Alt-s to split into selections at each line.
- 4. Align the table with &.
+1. 输入 /。
+2. 输入 banana 并按 Enter。
+3. 使用 n 和 N 在匹配项之间移动。
+
+搜索使用正则表达式，因此可以匹配更复杂的模式。后面学习 select 命令时会再次用到这一点。
+
+提示：和 Vim 不同，? 不会改变 n/N 的方向。N 总是向后，n 总是向前。
+
+
+
+=================================================================
+=                        第 4 章回顾                             =
+=================================================================
+
+ * 输入 u 撤销。输入 U 重做。
+ * 输入 y 复制文本，输入 p 粘贴。
+ * 使用 Space y 和 Space p 访问系统剪贴板。
+ * 输入 / 向前搜索文件，输入 ? 向后搜索。
+ * 使用 n 和 N 在搜索匹配之间移动。
+
+
+
+=================================================================
+=                         5.1 多光标                             =
+=================================================================
+
+输入 C 将光标复制到下一行合适的位置。
+
+1. 移动到下面第一行标记为 '-->' 的行，把光标放在箭头后面的文字区域。
+2. 输入 C，把光标复制到下一条相似行。注意中间的空行会被跳过。
+3. 进入插入模式，修复这两行。输入会同时影响两个光标。
+4. 输入 , 移除主光标以外的选择区。
+
+--> 同时修这两文。
+-->
+--> 同时修这两文。
+    同时修复这两行文字。
+
+提示：Alt-C 会向上复制光标。
+
+
+
+=================================================================
+=                       5.2 select 命令                          =
+=================================================================
+
+输入 s 在当前选择区中选择匹配项。
+
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 x 选择整行。
+3. 输入 s，会出现提示符。
+4. 输入 apples 并按 Enter，两个 apples 都会被选中。
+5. 输入 c，然后输入 oranges。
+6. 按 Escape 回到普通模式。
+
+--> apples taste good, and apples are easy to share.
+    oranges taste good, and oranges are easy to share.
+
+提示：s 使用正则表达式。它会在已有选择区内部查找匹配项。
+
+
+
+=================================================================
+=                       5.3 通过正则选择                         =
+=================================================================
+
+select 命令最强的地方是可以用正则表达式一次选中多个目标。
+
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 x 选择整行。
+3. 输入 s 打开提示符。
+4. 输入 \d+ 并按 Enter，选中所有数字。
+5. 输入 c，然后输入 0。
+6. 按 Escape 回到普通模式。
+
+--> apples: 12, bananas: 7, oranges: 31
+    apples: 0, bananas: 0, oranges: 0
+
+提示：如果想在全文件范围替换，可以先用 % 选择整个文件，再执行 s。
+
+
+
+=================================================================
+=                         5.4 对齐选择区                         =
+=================================================================
+
+输入 & 对齐选择区内容。
+
+1. 移动到下面第一行标记为 '-->' 的行，把光标放在箭头后面的空白处。
+2. 输入 C 四次，或输入 4C。
+3. 输入 W 选中数字和括号。
+4. 输入 & 对齐这些选择区。
+
+--> 97) lorem
+--> 98) ipsum
+--> 99) dolor
+--> 100) sit
+--> 101) amet
+
+提示：& 关注的是选择区 head 端的对齐；另一端叫 anchor。
+
+
+
+=================================================================
+=                     5.5 将选择区按行拆分                       =
+=================================================================
+
+按 Alt-s 可以按换行把一个或多个选择区拆分成多选择区。
+
+1. 移动到下面表格第一行。
+2. 输入 6x 选中整个表格。
+3. 按 Alt-s，将选择区拆成每一行一个选择区。
+4. 输入 & 对齐表格。
 
     | FRUIT   | AMOUNT |
     |---------|--------|
@@ -636,912 +557,758 @@
   | Oranges | 3      |
      | Donuts  | 4      |
 
- Note: On macOS, you may need to configure your terminal to use
-       Option as Alt (e.g. macos-option-as-alt = left).
-       This is also true for future Alt- commands.
+提示：macOS 终端可能需要把 Option 配置为 Alt，例如 macos-option-as-alt = left。后续 Alt- 命令同样如此。
+
+
 
 =================================================================
-=                        CHAPTER 5 RECAP                        =
+=                        第 5 章回顾                             =
 =================================================================
 
- * Type C to duplicate the cursor to the next suitable line
-   and Alt-C for previous suitable line.
-
- * Type s to select all instances of a regex pattern inside
-   the current selection.
-
- * Type & to align selections.
-
- * Press Alt-s to split the selection into lines.
-
-
-
-
-
+ * 输入 C 向下复制光标。
+ * 输入 Alt-C 向上复制光标。
+ * 输入 s 在当前选择区中选择匹配项。
+ * select 命令支持正则表达式。
+ * 输入 & 对齐选择区。
+ * 输入 Alt-s 将选择区按行拆分。
+ * 输入 , 保留主选择区并移除其他选择区。
 
 
 
 
 =================================================================
-=                 6.1 SELECTING TO A CHARACTER                  =
+=                     6.1 选择到某个字符                         =
 =================================================================
 
- Type f<ch> to select up to and including (find) a character.
- Type t<ch> to do the same, but not including (till) a character.
- Type uppercase F / T to do the same backwards.
+输入 f<字符> 选择到并包含某个字符。
+输入 t<字符> 选择到某个字符之前，不包含该字符。
+输入大写 F / T 执行同样操作，但方向向后。
 
- 1. Move the cursor to the line marked '-->' below. Place the
-    cursor on the first dash.
- 2. Type f[ to select to the square bracket.
- 3. Type d to delete your selection.
- 4. Go to the end of the line and repeat with F].
- 5. Move to the second line marked '-->', just after the arrow.
- 6. Use t and T to delete the dashes around the sentence.
+1. 移动到下面第一行标记为 '-->' 的行，把光标放在第一个短横线上。
+2. 输入 f[ 选择到左方括号。
+3. 输入 d 删除选择区。
+4. 移动到行尾，用 F] 反向重复。
+5. 移动到第二行箭头后。
+6. 使用 t 和 T 删除句子两侧的短横线。
 
- --> -----[Free this sentence of its brackets!]-----
- --> ------Free this sentence of its dashes!------
+--> -----[Free this sentence of its brackets!]-----
+--> ------Free this sentence of its dashes!------
 
- Note: Unlike Vim, Helix doesn't limit these commands to the
-       current line. It searches for the character in the file.
-
-=================================================================
-=                    6.2 THE REPLACE COMMAND                    =
-=================================================================
-
- Type r<ch> to replace all selected characters with <ch>.
-
- 1. Move to the second line of the table, place the cursor on the
-    first =.
- 2. Type t| (Shift-\) to select the = separator.
- 3. Type r- to replace the separator with dashes.
-
-
- | Month | Days |
- |=======|------|
- | Jan   | 31   |
- | Feb   | 28   |
- | Mar   | 31   |
- | ...   | ...  |
-
+提示：和 Vim 不同，Helix 不把这些命令限制在当前行。它会在文件中查找目标字符。
 
 
 
 =================================================================
-=                         6.3 REPETITION                        =
+=                         6.2 替换命令                           =
 =================================================================
 
- Type . to repeat the last insert command.
- Press Alt-. to repeat the last f / t selection.
+输入 r 替换当前选择区里的字符。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Make a change, insertion or appendage and repeat it with . .
- 3. Try using Alt-. with f and t, to select multiple sentences
-    for instance.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标移动到错误字符上。
+3. 输入 r，然后输入正确字符。
+4. 重复直到这一行正确。
 
- --> This is some text for you to repeat things. You can repeat
-     insertions like changing words, or repeat selections like
-     f / t.
+--> Hxlix xs a modxl txxt xditor.
+    Helix is a modal text editor.
 
-
-
-
+提示：r 适合替换少量字符；要改大段文本时，c 通常更方便。
 
 
 
 =================================================================
-=                        CHAPTER 6 RECAP                        =
+=                          6.3 重复                              =
 =================================================================
 
- * Type f / F to extend selection up to & including a character.
-   * Type t / T to extend selection until a character.
+输入 . 重复上一次插入命令。
+按 Alt-. 重复上一次 f / t 选择。
 
- * Type r to replace selected characters.
+1. 移动到下面标记为 '-->' 的行。
+2. 做一次修改、插入或追加，然后用 . 重复它。
+3. 试着配合 f 和 t，再用 Alt-. 重复选择。
 
- * Type . to repeat the last insertion.
-   * Press Alt-. to repeat the last f / t selection.
+--> This is some text for you to repeat things. You can repeat insertions like changing words, or repeat selections like f / t.
 
-
-
-
-
-
-
-
+提示：. 是提速键，适合重复同一种小编辑。
 
 
 
 =================================================================
-=                  7.1 REPLACE WITH YANKED TEXT                 =
+=                        第 6 章回顾                             =
 =================================================================
 
- Type R to replace the selection with previously yanked text.
-
- 1. Move the cursor to the line marked '-->' below.
- 2. Type w to select "watermelons" and then y to yank it.
- 3. Select "oranges" with w.
- 4. Type R to replace "oranges" with "watermelons".
-
-
- --> I like watermelons because oranges are refreshing.
-     I like watermelons because watermelons are refreshing.
-
-
-
-
-
+ * 输入 f / F 选择到并包含某个字符。
+ * 输入 t / T 选择到某个字符之前。
+ * 输入 r 替换选中的字符。
+ * 输入 . 重复上一次插入。
+ * 输入 Alt-. 重复上一次 f / t 选择。
 
 
 
 =================================================================
-=                       7.2 JOINING LINES                       =
+=                     7.1 用复制文本替换                         =
 =================================================================
 
- Type J to join together lines in selection.
+输入 R 用之前复制的文本替换当前选择区。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Type x four times or 4x to select all four lines.
- 3. Type J to join the lines together.
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 w 选中 watermelons，然后输入 y 复制它。
+3. 用 w 选中 oranges。
+4. 输入 R，用 watermelons 替换 oranges。
 
- --> This sentence
+--> I like watermelons because oranges are refreshing.
+    I like watermelons because watermelons are refreshing.
+
+提示：R 是 replace with yanked text，不会进入插入模式。
+
+
+
+=================================================================
+=                         7.2 合并多行                           =
+=================================================================
+
+输入 J 合并选择区中的多行。
+
+1. 移动到下面标记为 '-->' 的第一行。
+2. 输入 x 四次，或输入 4x，选中四行。
+3. 输入 J，把这些行合并成一行。
+
+--> This sentence
 is spilling over
 onto other
 lines.
 
-     This sentence is spilling over onto other lines.
+    This sentence is spilling over onto other lines.
 
-
-
+提示：J 很适合修复被硬换行拆开的文本。
 
 
 
 =================================================================
-=                      7.3 INDENTING LINES                      =
+=                         7.3 缩进多行                           =
 =================================================================
 
- Type > to indent a line and < to unindent it.
+输入 > 增加选择行的缩进。
+输入 < 减少选择行的缩进。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Move down to the second line and type > to indent it.
- 3. Move to the third line and type < to unindent it.
+1. 移动到下面标记为 '-->' 的第一行。
+2. 选择需要调整的行。
+3. 用 > 和 < 调整缩进，让结果更整齐。
 
- --> These lines
+--> These lines
     are indented
          very poorly.
 
-     These lines
-     are indented
-     much better.
+    These lines
+    are indented
+    much better.
 
+提示：这两个命令按行工作，很适合整理代码块。
 
 
 
-
 =================================================================
-=               7.4 INCREMENTING AND DECREMENTING               =
+=                       7.4 递增与递减数字                       =
 =================================================================
-
- Press Ctrl-a to increment the number under selection.
- Press Ctrl-x to decrement the number under selection.
 
- 1. Move the cursor to the third line marked '-->' below.
- 2. Move the cursor onto the number 2, then press Ctrl-a.
- 3. Move onto the number 3 on the next line and press Ctrl-a.
- 4. Move onto the number 6 on the last line and press Ctrl-x.
+按 Ctrl-a 递增选择区中的数字。
+按 Ctrl-x 递减选择区中的数字。
 
- --> 1) First point.
- --> 2) Added point.
- --> 2) Next point.
- --> 3) Another point.
- --> 6) Last point.
+1. 移动到下面第三行标记为 '-->' 的行。
+2. 把光标移到数字 2 上，按 Ctrl-a。
+3. 移到下一行的数字 3 上，按 Ctrl-a。
+4. 移到最后一行的数字 6 上，按 Ctrl-x。
 
+--> 1) First point.
+--> 2) Added point.
+--> 2) Next point.
+--> 3) Another point.
+--> 6) Last point.
 
+提示：这对整理列表编号、版本号、测试数据很方便。
 
 
 
 =================================================================
-=                        CHAPTER 7 RECAP                        =
+=                        第 7 章回顾                             =
 =================================================================
 
- * Type R to replace the selection with yanked text.
+ * 输入 R 用复制的文本替换选择区。
+ * 输入 J 合并选择区中的多行。
+ * 输入 > 和 < 增加 / 减少行缩进。
+ * 按 Ctrl-a 递增选中数字。
+ * 按 Ctrl-x 递减选中数字。
 
- * Type J to join lines in selection.
 
- * Type > and < to indent / unindent lines.
 
- * Press Ctrl-a to increment the selected number.
-   * Press Ctrl-x to decrement the selected number.
+=================================================================
+=                         8.1 寄存器                             =
+=================================================================
 
+寄存器是用单个字符命名的存储容器，可以保存复制、删除、宏等内容。
 
+输入 "<寄存器> 选择接下来命令使用的寄存器。例如 "ay 会把当前选择区复制到 a 寄存器。
 
+1. 移动到下面标记为 '-->' 的行。
+2. 输入 w 选中 alpha。
+3. 输入 "ay，把 alpha 复制到 a 寄存器。
+4. 移动到 beta 上，输入 "ap，把 a 寄存器内容粘贴出来。
+5. 尝试用另一个寄存器保存不同文本。
 
+--> alpha beta gamma
 
+常用寄存器：
 
+ * "  默认寄存器。
+ * _  黑洞寄存器，写入它的内容会被丢弃。
+ * +  系统剪贴板寄存器。
+ * /  搜索寄存器。
 
+提示：寄存器让“复制 A、再复制 B、稍后仍能粘贴 A”成为可能。
 
 
 
 =================================================================
-=                         8.1 REGISTERS                         =
+=                           8.2 宏                               =
 =================================================================
 
- Registers are containers identified by a character for storing
- things like yanked text. Registers are also used to store the
- most recent search term as well as macros, which you'll learn
- about in the next section.
+宏可以记录一串按键，然后重复执行。
 
- Type "<ch> to select register <ch>.
+输入 Q 开始或停止录制宏。
+输入 q 播放刚才录制的宏。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Type w to select "watermelons" and yank with y.
- 3. Type w to select "bananas".
- 4. Change to register b with "b and yank with y.
- 5. Select "mangoes" and type R to replace it with "watermelons".
- 6. Select "pineapples" then type "b R to replace with "bananas".
+1. 移动到下面第一行标记为 '-->' 的行。
+2. 输入 Q 开始录制。
+3. 做一次简单修改，例如把 word 改成 WORD。
+4. 输入 Q 停止录制。
+5. 移到下一行，输入 q 重放宏。
 
- --> I like watermelons and bananas because my favorite fruits
-     are mangoes and pineapples.
-
-
-=================================================================
-=                          8.2 MACROS                           =
-=================================================================
+--> word one
+--> word two
+--> word three
 
- Macros are a way to record a set of actions you want to repeat.
- You can also record macros to a specific register (default @).
- Type Q to start recording a macro - you should see a popup at
- the bottom of your screen. Type Q again to stop recording.
- Type q to repeat the macro from register @ (the default).
+提示：宏适合重复结构非常相似、但又不值得写脚本的编辑。
 
- 1. Move the cursor to the first line marked '-->' below.
-    Ensure your cursor is on the '>' of the arrow.
- 2. Type Q to start recording.
- 3. Edit the line to look like the bottom one.
- 4. Exit insert and type Q again to stop recording.
- 5. Move to the line below and put your cursor on '>' again.
- 6. Type q to repeat the macro.
 
- --> ... sentence doesn't have its first and last ... .
- --> ... sentence doesn't have its first and last ... .
-     This sentence doesn't have its first and last word.
 
 =================================================================
-=                        CHAPTER 8 RECAP                        =
+=                        第 8 章回顾                             =
 =================================================================
 
- * Type " to select a different register.
+ * 输入 "<寄存器> 让下一条命令使用指定寄存器。
+ * + 寄存器通常对应系统剪贴板。
+ * 输入 Q 开始 / 停止录制宏。
+ * 输入 q 播放宏。
 
- * Type Q to start and stop recording a macro to a register,
-   the default being @.
 
- * Type q to replay a macro from @ or the selected register.
 
-
-
-
-
+=================================================================
+=                    9.1 搜索当前选择内容                       =
+=================================================================
 
+输入 * 搜索当前选择区的内容。
 
+1. 移动到下面标记为 '-->' 的行。
+2. 用 w 选中 Helix。
+3. 输入 *，把 Helix 作为搜索内容。
+4. 使用 n 和 N 在匹配之间移动。
 
+--> Helix makes Helix-style selections feel natural.
 
+提示：这比手动输入 /Helix 更快，也更不容易输错。
 
 
 
 =================================================================
-=                  9.1 SEARCHING FOR SELECTIONS                 =
+=               9.2 在下一个搜索匹配处添加选择区                 =
 =================================================================
 
- The most recent search with / is stored in register /.
- n and N both refer to register /, this means we can set that
- register without having to type in a search.
+输入 Alt-n 在下一个搜索匹配处添加选择区。
+输入 Alt-N 在上一个搜索匹配处添加选择区。
 
- Type * to copy the selection into register /, setting the search
- term to the selection. This copies the primary selection, which
- you will learn about in the section on cycling selections.
+1. 移动到下面标记为 '-->' 的行。
+2. 用 w 选中 apple。
+3. 输入 * 搜索 apple。
+4. 反复输入 Alt-n，把后面的 apple 也加入选择。
+5. 输入 c，把这些 apple 一次改成 orange。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Select "horse" with e and type *.
- 3. Use n and N to jump between the instances of "horse".
+--> apple apple apple pear apple
+    orange orange orange pear orange
 
- --> A horse is a horse, of course, of course,
- --> And no one can talk to a horse of course.
+提示：这是 Helix 多光标编辑里非常常用的一招。
 
- Note: * is like a shorthand for "/y as all it really does is
-       copy the selection into the / register.
 
+
 =================================================================
-=           9.2 ADDING SELECTION ON NEXT SEARCH MATCH           =
+=                         9.3 跳转列表                           =
 =================================================================
 
- A property of Select mode (v) when using n and N is that instead
- of moving the selection to the next match, it adds a new
- selection on each match.
+Helix 会记录一些跳转位置，形成 jumplist。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Select the first "bat" and type * to set it to search.
- 3. Type v to enter Select mode.
- 4. Type n to select the other "bat".
- 5. Use c (or r after selecting the "b"s) to change the "bat"s to
-    "cat".
+按 Ctrl-o 跳回较旧的位置。
+按 Ctrl-i 跳到较新的位置。
 
- --> Everybody wants to be a bat,
- --> because a cat's the only bat
- --> who knows where it's at.
+1. 用 / 搜索本文件中的某个词并跳转几次。
+2. 按 Ctrl-o 回到之前的位置。
+3. 按 Ctrl-i 再向前跳回来。
 
+提示：当你在文件里来回查找、跳定义、看引用时，jumplist 可以帮你回到原处。
 
 
 
 =================================================================
-=                     9.3 USING THE JUMPLIST                    =
+=                 9.4 使用两个字符标签快速跳转                   =
 =================================================================
-
- Helix can keep track of "jumps" which are big movements, like
- searching or jumping to the definition of a function in code. It
- stores these in what's called the jumplist.
 
- Press Ctrl-s to manually save your current position to
- the jumplist.
+输入 gw 进入基于两个字符标签的跳转。
+Helix 会在可见区域生成标签，输入对应标签即可跳到目标位置。
 
- Press Ctrl-i ("in") and Ctrl-o ("out") to move forward and
- backwards in the jumplist respectively.
+1. 输入 gw。
+2. 看屏幕上的标签提示。
+3. 输入某个标签的两个字符，跳到那里。
 
- 1. Press Ctrl-s somewhere.
- 2. Move far away in the file.
- 3. Press Ctrl-o (just once!) to come back to where you saved.
+提示：这类跳转适合在屏幕可见范围内快速定位，比反复按 h j k l 更快。
 
 
 
-
-
 =================================================================
-=             9.4 JUMP WITH TWO-CHARACTER LABELS                =
+=                        第 9 章回顾                             =
 =================================================================
 
- Type gw to enable the 2-character labels. The start of each word
- will be replaced by 2 highlighted characters. Type any sequence
- of 2 highlighted characters to jump to the corresponding label,
- or use ESC to drop the labels.
+ * 输入 * 搜索当前选择区的内容。
+ * 输入 Alt-n 在下一个搜索匹配处添加选择区。
+ * 输入 Alt-N 在上一个搜索匹配处添加选择区。
+ * 使用 Ctrl-o 和 Ctrl-i 在跳转列表中前后移动。
+ * 输入 gw 使用两个字符标签快速跳转。
 
- The 2-character labels allow you to quickly jump to any location
- in the viewable selection.
 
- 1. Move the cursor to the start of the line marked '-->' below.
- 2. Press gw to enable the 2-character labels, and then the two
-    characters that replace the two letters 'he' at the start of
-    'here' to jump to the corresponding word.
 
- --> This is just a simple line of text.
-     There may be many such lines
-     But you really want to jump here!
-     This is fast with the 2-character labels.
 
 =================================================================
-=                        CHAPTER 9 RECAP                        =
+=                        10.1 匹配括号                           =
 =================================================================
-
- * Type * to set the search register to the primary selection.
-
- * Type n / N in Select mode to add selections on each search
-   match.
 
- * Press Ctrl-s to save position to the jumplist.
-   * Press Ctrl-i and Ctrl-o to go forward and backward in the
-     jumplist.
+输入 m 进入匹配模式。匹配模式里有一组和括号、引号、XML/HTML 标签等结构相关的命令。
 
- * Type gw to enable 2-character labels, and any 2 characters to
-   jump to the corresponding label, or ESC to drop the labels.
+输入 mm 跳到匹配的括号、引号或标签。
 
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在任意一个括号上。
+3. 输入 mm，跳到与它匹配的另一侧。
+4. 在不同类型的括号上多试几次。
 
+--> fn demo() { let values = [1, (2 + 3), { 4 }]; }
 
+提示：在写代码时，mm 是检查括号配对最快的办法之一。
 
 
 
-
 =================================================================
-=             10.1 CYCLING AND REMOVING SELECTIONS              =
+=                       10.2 选择包围内容                        =
 =================================================================
 
- Type ) and ( to cycle the primary selection forward and backward
- through selections respectively.
+匹配模式可以选择“包围结构”。
 
- Press Alt-, to remove the primary selection.
+输入 mi<分隔符> 选择分隔符内部内容。
+输入 ma<分隔符> 选择包含分隔符本身的整个结构。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Select both lines with xx or 2x.
- 3. Type s to select, type "would" and enter.
- 4. Use ( and ) to cycle the primary selection and deselect
-    the second "would" with Alt-, .
- 5. Type c "wood" to change the remaining "would"s to "wood".
+常见分隔符包括：
 
- --> How much would would a wouldchuck chuck
- --> if a wouldchuck could chuck would?
+ * ( 或 )  圆括号
+ * [ 或 ]  方括号
+ * { 或 }  花括号
+ * "       双引号
+ * '       单引号
 
- Note: The primary selection can be hard to see in some themes.
-       Check the status bar (bottom right) for the active index.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在括号内部任意位置。
+3. 输入 mi( 选择括号内部内容。
+4. 输入 ; 折叠选择。
+5. 输入 ma( 选择包含括号的一整段。
 
-=================================================================
-=             10.2 CYCLING THE CONTENT OF SELECTIONS            =
-=================================================================
+--> call_this_function(select only this part, then the whole parenthesized part)
 
- Press Alt-) and Alt-( to cycle the content of the selections
- forward and backward respectively.
+提示：i 表示 inside，a 表示 around。这个记法也会出现在很多编辑器里。
 
- 1. Move the cursor to the line marked '-->' below.
- 2. Select both lines with xx or 2x.
- 3. Type s to select, type "through|water|know" and enter.
- 4. Use Alt-( and Alt-) to cycle the content of the selections.
 
- --> Jumping through the water,
- --> daring to know.
 
+=================================================================
+=                       10.3 改变大小写                          =
+=================================================================
 
+输入 ~ 切换选中字母的大小写。
+输入 ` 把选中字母改成小写。
+输入 Alt-` 把选中字母改成大写。
 
+1. 移动到下面标记为 '-->' 的行。
+2. 选择 mixedCase。
+3. 输入 ~ 观察大小写切换。
+4. 撤销后，试试 ` 和 Alt-`。
 
+--> mixedCase lower UPPER
 
+提示：这些命令按选择区工作，所以先选择一个词或一段文字，再执行命令。
 
 
 
 =================================================================
-=                     10.3 CHANGING CASE                        =
+=                      10.4 添加包围符号                         =
 =================================================================
 
- Type ~ to switch the case of all selected letters.
- Type ` to set all selected letters to lowercase.
- Press Alt-` to set all selected letters to uppercase.
+输入 ms<分隔符> 给当前选择区添加一对包围符号。
 
- 1. Move the cursor to the first line marked '-->' below.
- 2. Select each wrongly capitalised or lowercase letter
-    and type ~ over them.
- 3. Move to the second line marked '-->'.
- 4. Type x to select the line.
- 5. Type ` to change the line to lowercase.
- 6. Move to the third line marked '-->'.
- 7. Type x to select the line.
- 8. Press Alt-` to change the line to uppercase.
+例如，ms( 会在选择区两边添加圆括号。ms" 会添加双引号。
 
- --> thIs sENtencE hAs MIS-cApitalIsed leTTerS.
- --> this SENTENCE SHOULD all be in LOWERCASE.
- --> THIS sentence should ALL BE IN uppercase!
+1. 移动到下面标记为 '-->' 的行。
+2. 选择 all of this 这几个词。
+3. 输入 ms(，给选择区加上圆括号。
 
-=================================================================
-=                   10.4 SPLITTING SELECTIONS                   =
-=================================================================
+--> so, select all of this, and surround it with ()
 
- Type S to split each selection on a regex pattern.
+你也可以用其他分隔符。例如在下面的 WORD 上输入 ms'，给它加上一对单引号。
 
- 1. Move the cursor to the line under ---.
- 2. Type xx / 2x to select the lines.
- 3. Type S then \. |! Enter (note the spaces after . and !).
-    This effectively splits the selection into sentences at each
-    dot or exclamation mark.
- 4. Press Alt-; to reverse the selections.
- 5. Type ; to reduce selections to a single character - the first
-    letter of each sentence.
- 6. Press Alt-` to convert all selected letters to uppercase.
+--> surround this WORD !
 
----
-these are sentences. some sentences don't start with uppercase
-letters! that is not good grammar. you can fix this.
+提示：ms 后面跟你想添加的分隔符。成对符号会自动补齐另一侧。
 
 
 
 =================================================================
-=                        CHAPTER 10 RECAP                       =
+=                      10.5 删除包围符号                         =
 =================================================================
-
- * Use ) and ( to cycle the primary selection back and forward
-   through selections respectively.
-   * Press Alt-, to remove the primary selection.
-   * Press Alt-) and Alt-( to cycle the content of the selections.
 
- * Type ~ to alternate case of selected letters.
-   * Use ` and Alt-` to set the case of selected letters to
-     lower and upper respectively.
+输入 md<分隔符> 删除一对包围符号。
 
- * Type S to split selections on regex.
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在括号内部。
+3. 输入 md( 删除包围的圆括号。
+4. 对引号、方括号或花括号再试一次。
 
+--> remove (these parentheses) and "these quotes" too
 
+提示：d 在这里是 delete surrounding pair 的意思。
 
 
 
-
-
-
 =================================================================
-=                     11.1 COMMENTING A LINE                    =
+=                      10.6 替换包围符号                         =
 =================================================================
-
- Press Ctrl-c to comment the line under your cursor.
- To uncomment the line, press Ctrl-c again.
 
- 1. Move your cursor to the line marked '-->' below.
- 2. Now comment the line marked with '-->'.
- 3. Now try uncommenting the line.
+输入 mr<旧分隔符><新分隔符> 替换包围符号。
 
- --> Comment me please
+例如 mr([ 会把圆括号换成方括号。
 
+1. 移动到下面标记为 '-->' 的行。
+2. 把光标放在圆括号内部。
+3. 输入 mr([，把圆括号替换成方括号。
+4. 再试试把引号换成反引号或单引号。
 
+--> replace (these delimiters) and "these quotes"
 
+提示：先指定要替换的旧分隔符，再指定新的分隔符。
 
 
 
-
-
-
-
 =================================================================
-=                 11.2 COMMENTING MULTIPLE LINES                =
+=                        第 10 章回顾                            =
 =================================================================
 
- Using the selections and multi-cursor functionality, you can
- comment multiple lines as long as they are under the selection or
- cursors. To uncomment the lines, press Ctrl-c again.
+ * 输入 m 进入匹配模式。
+ * 输入 mm 跳到匹配的括号、引号或标签。
+ * 输入 mi<分隔符> 选择分隔符内部。
+ * 输入 ma<分隔符> 选择包含分隔符的一整段。
+ * 输入 ~ 切换大小写。
+ * 输入 ` 改为小写，输入 Alt-` 改为大写。
+ * 输入 ms<分隔符> 添加包围符号。
+ * 输入 md<分隔符> 删除包围符号。
+ * 输入 mr<旧><新> 替换包围符号。
 
- 1. Move your cursor to the line marked with '-->' below.
- 2. Now try to select or add more cursors to the other lines marked
-    with '-->'.
- 3. Comment those lines.
- 4. Uncomment those lines.
 
- --> What are you doing?!
- --> Stop commenting me!
- --> AAAAaargh!!!
- --> Enough! Uncomment me now!
 
- Note: If there are only some commented lines under selections or
- multiple cursors, they won't be uncommented but commented again.
-
 =================================================================
-=                       CHAPTER 11 RECAP                        =
+=                       11.1 goto 模式                           =
 =================================================================
 
- * Use Ctrl-c to comment a line under your cursor. Press Ctrl-c
-   again to uncomment.
- * To comment multiple lines, use the selections or multi-cursors
-   before typing Ctrl-c. Press Ctrl-c again to uncomment.
+输入 g 进入 goto 模式。goto 模式提供一组“跳到某处”的命令。
 
+常用命令：
 
+ * gg  跳到文件开头。
+ * ge  跳到文件末尾。
+ * gh  跳到行首。
+ * gl  跳到行尾。
+ * gs  跳到第一个非空白字符。
 
+1. 在本文件中任意位置输入 gg，跳到文件开头。
+2. 输入 ge，跳到文件末尾。
+3. 回到本节，试试 gh、gl、gs。
 
+提示：goto 模式把很多跳转动作集中在 g 下面，记忆负担比较低。
 
 
 
+=================================================================
+=                       11.2 行号跳转                            =
+=================================================================
 
+输入数字后再输入 gg，可以跳到指定行。
 
+1. 输入 100gg，跳到第 100 行。
+2. 输入 1gg，跳回第 1 行。
+3. 用 / 搜索 11.2 回到本节。
 
+也可以在命令行中输入 :<行号> 跳到指定行，例如 :42。
 
+提示：查看编译错误或日志位置时，行号跳转很实用。
 
 
 
 =================================================================
-=                   12.1 USING MATCH MODE JUMP                  =
+=                       11.3 文件和符号跳转                      =
 =================================================================
+
+根据语言服务器和配置，Helix 可以跳转到定义、声明、类型定义、实现或引用。
 
- To switch to match mode from normal mode, type m. This feature
- is particularly useful for handling bracket pairs and their
- contents.
+常见 goto 命令包括：
 
- There are several actions that can be performed in match mode,
- as indicated by the help pop-up. To jump to a matching bracket pair,
- simply press mm. For example on the lines below (starting with
- -->), move the cursor in normal mode to (, and then press mm to jump
- to the matching ). You can do the same on the line below: for example
- move to ], and press mm to jump to [ .
+ * gd  跳到定义。
+ * gD  跳到声明。
+ * gy  跳到类型定义。
+ * gi  跳到实现。
+ * gr  跳到引用。
 
- --> you can (jump between matching parentheses)
- --> or between matching [ square brackets ]
- --> now { you know the drill: this works with brackets too }
+这些命令在普通文本里可能没有效果，但在配置好语言服务器的代码项目里非常有用。
 
+提示：如果跳转后想回来，可以按 Ctrl-o。
 
 
 
 =================================================================
-=              12.2 USING MATCH MODE SELECT INSIDE              =
+=                        第 11 章回顾                            =
 =================================================================
 
- Match mode also lets you select the "inside" content between a
- pair of brackets or other delimiters. In the lines below:
+ * 输入 g 进入 goto 模式。
+ * 输入 gg 跳到文件开头，输入 ge 跳到文件末尾。
+ * 输入 gh / gl / gs 在当前行内跳转。
+ * 输入 <数字>gg 跳到指定行。
+ * gd、gD、gy、gi、gr 依赖语言服务器进行代码导航。
 
- - move to the --> line, put your cursor in normal mode at any
- location between the parentheses, for example at 'x', and press
- mi( or mi) to select the whole content inside the parentheses
- (parentheses excluded). As usual, you can then do anything you want
- with the selection (for example, press c to change it)
 
- --> outside and (inside x parentheses) - and outside again
 
- Test below that you can do the same with [], or {}, or with
- nested combinations of these (this will act on the immediately
- surrounding matching pair). This also works with "" and similar
-
- --> test [ with square brackets ] !
- --> try ( with nested [ pairs of ( parentheses) and "brackets" ])
-
 =================================================================
-=               12.3 USING MATCH MODE SELECT AROUND             =
+=                       12.1 命令行模式                          =
 =================================================================
 
- You can also select the "around" content, i.e. both the inside
- content and the delimiters themselves, by using the ma select.
- For example, move to the line under, move your cursor in normal
- mode to any position between the (), and select the content of
- the (), including the surrounding (), by typing ma( or ma). As
- usual, you can do anything you want with the selection, for
- example delete it all with ma(d .
+输入 : 打开命令行模式。很多不适合绑定到单个按键的功能都通过命令提供。
 
- --> you ( select x around ) to include delimiters in the select
+常用命令：
 
- This naturally works with other delimiters too:
+ * :write 或 :w        保存当前文件。
+ * :quit 或 :q         退出。
+ * :write-quit 或 :wq  保存并退出。
+ * :open <路径>        打开文件。
+ * :reload             从磁盘重新加载文件。
+ * :set-option         临时设置选项。
 
- --> try [ with 'square' brackets ] too!
+1. 输入 : 然后观察命令提示符。
+2. 输入 w 并按 Enter，保存文件。
+3. 再输入 :，按 Escape 取消。
 
+提示：命令行支持补全。输入一部分命令后，可以按 Tab 查看补全项。
 
 
 
-
 =================================================================
-=                12.4 USING MATCH MODE SURROUND                 =
+=                       12.2 文件选择器                          =
 =================================================================
-
- The match mode can also be used to add surrounding around the
- current selection. For example, move to the line below, then:
-  * i) select the "select all of this" line segment (for example,
- move in normal mode the cursor to the start of select, then enter
- selection mode with v , then select the 4 next words with 4e ),
-  * ii) press ms( or ms) to surround the selection with a pair of
- parentheses.
 
- --> so, select all of this, and surround it with ()
+按 Space f 打开文件选择器。
+按 Space b 打开缓冲区选择器。
 
- You can do the same with other delimiters: for example, ms' on
- WORD below to surround it with a pair of ''. You can try also
- with adding a surrounding pair of "", or {}, or [].
+1. 按 Space f。
+2. 输入文件名的一部分进行过滤。
+3. 用上下移动选择文件。
+4. 按 Escape 取消，避免离开教程。
 
- --> surround this WORD !
+提示：文件选择器是项目里快速打开文件的主要入口。
 
 
 
 =================================================================
-=              12.5 USING MATCH MODE DELETE SURROUND            =
+=                       12.3 全局搜索                            =
 =================================================================
 
- You can delete surrounding pair of delimiters with the md
- command. On the line below, move the cursor anywhere
- within the pair of (), for example to the 'x', then from there,
- in normal mode, press md( or md) to delete the surrounding
- pair of parentheses.
+按 Space / 可以在项目中搜索文本。
 
- --> delete (the x pair of parentheses) from within!
+1. 按 Space /。
+2. 输入要搜索的词。
+3. 在结果中移动并打开匹配位置。
+4. 按 Escape 回到教程。
 
- You can naturally delete other kinds of surroundings:
+这通常依赖系统中的 ripgrep，所以在大型项目里也很快。
 
- --> delete (nested [delimiters]): "this" will delete the nearest
- matching surrounding pair.
- --> delete "layers "of" quote marks" too: this will delete the
- nearest previous and following quote marks
+提示：文件内搜索用 /，项目范围搜索用 Space /。
 
- Trying to delete nonexistent surrounding delimiters prints an error
- at the bottom bar and does nothing.
 
+
 =================================================================
-=             12.6 USING MATCH MODE REPLACE SURROUND            =
+=                       12.4 命令面板                            =
 =================================================================
 
- You can replace surrounding pairs of delimiters with the mr
- command. On the line below, move the cursor to
- anywhere within the pair of (), for example on the 'x', then in
- normal mode, press mr([ to replace the pair of () with a pair
- of [].
+按 Space ? 打开命令面板。
 
- --> replace the (pair from x within), with something else
+命令面板会列出 Helix 可用命令，你可以通过模糊匹配查找命令。
 
- This command will act on the closest enclosing pair, so you
- can try replacing different surrounding in the following:
+1. 按 Space ?。
+2. 输入 write，看看保存相关命令。
+3. 按 Escape 取消。
 
- --> some (nested surroundings [can be replaced])
- --> this "works with 'other surroundings' too"
+提示：记不住命令时，命令面板比猜按键更可靠。
 
- You can try to replace a nonexistent pair: this will show
- an error warning at the bottom bar and do nothing.
 
 
 =================================================================
-=                       CHAPTER 12 RECAP                        =
+=                        第 12 章回顾                            =
 =================================================================
-
- You can enter the match mode with the m key; this will show the
- actions available in a popup. This will allow you to:
-  * jump to matching pair of delimiters with mm (you must have a
-  delimiter belonging to a pair under your cursor)
-  * select inside a pair of delimiters surrounding your cursor
-  (i.e. select the content but not the delimiters) with mi(
-  and similar
-  * select around a pair of delimiters surrounding your cursor
-  (i.e. select the content and the delimiters) with ma( and
-  similar
-  * delete surrounding delimiters with md( and similar
-  * add surrounding delimiters around the selection with ms(
-  * replace a pair of delimiters surrounding your selection with
-  mr([ to replace for example surrounding () with []
 
+ * 输入 : 打开命令行模式。
+ * :w 保存，:q 退出，:wq 保存并退出。
+ * 按 Space f 打开文件选择器。
+ * 按 Space b 打开缓冲区选择器。
+ * 按 Space / 进行项目范围搜索。
+ * 按 Space ? 打开命令面板。
 
 
 
 =================================================================
-=                CHAPTER 13.1 CREATE NEW SPLIT                  =
+=                       13.1 窗口分割简介                        =
 =================================================================
 
- In Normal mode, press Ctrl-w to open the Window menu, which displays
- a list of available commands.
+Helix 可以把编辑区分成多个 split，同时查看多个文件或同一文件的不同位置。
 
- To open a new empty buffer in a vertical split on the right half
- of your current window, use Ctrl-w nv (i.e., press Ctrl
- and w simultaneously, then press n, followed by v). Your current
- window will now split in 2 vertically. A new empty buffer split
- will appear on the right half and your cursor will jump to the
- new vertical split.
+分割窗口在阅读代码、对照修改、查看定义和实现时非常有用。
 
- To create a new empty buffer in a horizontal split, press
- Ctrl-w ns. This action divides your current window into two
- horizontally, creates a new buffer, and moves your cursor to the
- new horizontal split.
+1. 在本节阅读 split 命令。
+2. 如果你正在终端里练习，可以实际打开一个新 split。
+3. 不想改变当前界面时，只阅读命令即可。
 
+提示：split 是工作区布局，不是复制文件。
 
 
 
 =================================================================
-=                CHAPTER 13.2 MOVE BETWEEN SPLITS               =
+=                       13.2 垂直和水平分割                      =
 =================================================================
 
- Use Ctrl-w k to move to the split above your current split. Use
- Ctrl-w j to move to the split below. Use Ctrl-w h to move to
- the split on the left and Ctrl-w l to move to the split on the
- right. To navigate to the next split (in the order they were
- opened), press Ctrl-w w.
+输入 Ctrl-w v 创建垂直分割。
+输入 Ctrl-w s 创建水平分割。
 
- You can now do whatever you want in your new buffers and splits.
- Once you are done with using your new buffer split,
- you can close it with Ctrl-w q . Move to the bottom right split
- with Ctrl-w l then Ctrl-w j, then press Ctrl-w q to close this
- specific split.
+1. 输入 Ctrl-w v，创建左右分割。
+2. 输入 Ctrl-w s，创建上下分割。
+3. 用 :q 关闭当前 split。
 
- You can also close all splits except the current one with Ctrl-w o .
- Open a third vertical split with Ctrl-w nv , then move to the
- leftmost split with Ctrl-w h twice, then from inside the split on
- the left press Ctrl-w o to close all except this split.
+提示：Ctrl-w 是窗口命令前缀，很多 split 操作都从它开始。
 
 
+
 =================================================================
-=               CHAPTER 13.3 SPLIT CURRENT BUFFER               =
+=                       13.3 在 split 间移动                     =
 =================================================================
-
- Use Ctrl-w s to split the view of the current buffer horizontally
- and Ctrl-w v to split it vertically with the buffer opened in both
- splits.
 
- Close extra splits with Ctrl-w o to return to a single window view.
+输入 Ctrl-w h / j / k / l 在分割窗口之间移动。
 
+ * Ctrl-w h 移到左侧 split。
+ * Ctrl-w j 移到下方 split。
+ * Ctrl-w k 移到上方 split。
+ * Ctrl-w l 移到右侧 split。
 
+1. 创建两个或多个 split。
+2. 用 Ctrl-w h/j/k/l 在它们之间移动。
+3. 用 :q 关闭多余的 split。
 
+提示：这和基本移动键 h/j/k/l 的方向一致。
 
 
 
-
-
-
-
-
-
-
 =================================================================
-=               CHAPTER 13.4 USE COMMANDS TO SPLIT              =
+=                    13.4 使用命令创建 split                     =
 =================================================================
 
- The :vsplit (or :vs for short) and :hsplit (or :hs) commands can
- also be used to split a specific buffer vertically or horizontally.
- For example, enter the command:
+也可以用命令打开分割窗口：
 
- :vs something
+ * :vsplit 或 :vs  垂直分割当前文件。
+ * :hsplit 或 :hs  水平分割当前文件。
+ * :vsplit <文件名>  在新垂直 split 中打开文件。
+ * :hsplit <文件名>  在新水平 split 中打开文件。
 
- to open a new vertical split named "something" to the right. Here,
- "something" is not an existing file, so a new buffer with this name
- will open; however, you can replace "something" with any file name
- to open it in a new buffer. Similarly, you can enter the command:
+1. 输入 :vs 并按 Enter。
+2. 输入 :q 关闭新 split。
+3. 如果愿意，试试 :hs。
 
- :hs some_more
+提示：命令形式适合和文件路径一起使用。
 
- to open a new buffer named "some_more" in the lower half.
- "some_more" could be any file or path to open this specific file
- or path instead of a new empty buffer.
 
 
 =================================================================
-=                  CHAPTER 13.5 SWAPPING SPLITS                 =
+=                       13.5 交换 split                          =
 =================================================================
-
- Open a split on the right with :vs hello1 and then a split below
- with :hs hello2.
 
- From hello2, press Ctrl-w K to swap it with the split above. Now
- hello2 is at the top while hello1 is at the bottom.
+Helix 可以交换当前 split 与相邻 split 的位置。
 
- Still from hello2, press Ctrl-w H to swap with the split on the
- left: now hello2 is on the left and the tutor is on the top
- right. After Ctrl-w you can use HJKL to swap with the buffer
- on the left / below / above / on the right.
+常见窗口交换命令在 Ctrl-w 模式下完成，具体键位可以用 Space ? 搜索 split 或 window 查看。
 
- Move back to the tutor split, and press Ctrl-w o to only keep
- this split.
+1. 创建两个 split。
+2. 打开命令面板，搜索 split / window。
+3. 找到交换 split 的命令并尝试执行。
 
+提示：不同版本的键位可能会变化；命令面板能显示当前 Helix 实际支持的命令。
 
 
 
-
 =================================================================
-=                CHAPTER 13.6 TRANSPOSE SPLITS                  =
+=                       13.6 转置 split                          =
 =================================================================
-
- Open a split on the right with :vs hello1 and then a split below
- with :hs hello2.
 
- Move to the tutor split, then press Ctrl-w t to transpose the
- vertical split opened from this window: now, hello1 and
- hello2 are below, rather than to the right of, the tutor. Press
- Ctrl-w t again to transpose back.
+转置 split 会改变 split 的布局方向，例如把左右关系转换成上下关系。
 
- Move to the hello1 split, then press Ctrl-w t to transpose the
- horizontal split that was opened from this window: now hello2
- is on the right, rather than below, hello1. Press Ctrl-w t to
- transpose back.
+1. 创建几个 split。
+2. 使用命令面板搜索 transpose。
+3. 执行相关命令，观察布局变化。
 
- Move back to the tutor split and press Ctrl-w o to close all but
- the tutor window.
+提示：当布局越来越乱时，关闭多余 split 再重新分割通常更快。
 
 
 
 =================================================================
-=             CHAPTER 13.7 OPEN SPLIT FROM FILEPICKER           =
+=                  13.7 从文件选择器打开 split                   =
 =================================================================
 
- Splits can also be opened directly from the file picker. Press
- space f to open the file picker. From there, you can type in text
- to perform file lookup with fuzzy matching, and use the arrows
- up and down to move the selected file (indicated by the > symbol).
- If you want to exit the file picker, press Escape.
+在文件选择器里，可以直接把选中文件打开到新的 split：
 
- Select any file you like in the file picker. You could open it in
- the current view by pressing enter (do not do this at present).
- But you can also open it in a new split. Press Ctrl-v to open
- the selected file in a new vertical split. Press space f again,
- select any file you want, and press Ctrl-s to open it in a
- horizontal split.
+ * Ctrl-v 在新的垂直 split 中打开选中文件。
+ * Ctrl-s 在新的水平 split 中打开选中文件。
 
- Move back to the tutor split, and press Ctrl-w o to close all
- splits except this one.
+1. 按 Space f 打开文件选择器。
+2. 选中一个文件。
+3. 按 Ctrl-v 或 Ctrl-s 打开到新 split。
+4. 用 :q 关闭不需要的 split。
 
+提示：这比先打开文件再手动分割更顺手。
 
 
+
 =================================================================
-=                        CHAPTER 13 RECAP                       =
+=                        第 13 章回顾                            =
 =================================================================
-
- Splits can be used to display either the same buffer several times
- or several buffers. To access the main windows and splits commands,
- press Ctrl-w . You can move between splits with Ctrl-w hjkl ,
- you can close a split with Ctrl-w q , and you can close all but
- the present split with Ctrl-w o .
-
- Splits can also be opened by using the :vs FILENAME and
- :hs FILENAME commands.
-
- Splits can also be used directly from the file pickers, by using
- Ctrl-v to open the file selected in a new vertical split, and
- Ctrl-s in a horizontal split.
-
-
 
+ * Ctrl-w v 创建垂直 split。
+ * Ctrl-w s 创建水平 split。
+ * Ctrl-w h/j/k/l 在 split 间移动。
+ * :vs 和 :hs 可以通过命令创建 split。
+ * 文件选择器中 Ctrl-v / Ctrl-s 可以直接打开到新 split。
 
 
 
 =================================================================
- This tutorial is still a work-in-progress.
- More sections are planned.
+本教程仍在完善中。
+后续还可以继续补充更多 Helix 功能章节。
